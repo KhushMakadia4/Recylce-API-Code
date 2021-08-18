@@ -78,10 +78,9 @@ public class FirstFragment extends Fragment {
 //                        Snackbar.make(view, "MF IT WORKED", Snackbar.LENGTH_LONG)
 //                                .setAction("Action", null).show();
 
-
+                        JSONObject res = new JSONObject(response);
                         System.out.println(response);
                     }
-
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String res, Throwable t) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
