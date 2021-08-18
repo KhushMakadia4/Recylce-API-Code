@@ -44,6 +44,55 @@ public class FirstFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_first, container, false);
     }
 
+
+    public void getDataFromUPC(){
+        String url="https://api.upcdatabase.org/product/026229570766?apikey=C57E6D7587FC1409492A9FC25D07D991";
+        AsyncHttpClient upddatabaseReq= new AsyncHttpClient();
+//        RequestParams upcdatabaseParams=new RequestParams();
+//        upcdatabaseParams.put("apikey","C57E6D7587FC1409492A9FC25D07D991");
+        upddatabaseReq.get(url, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                // Root JSON in response is an dictionary i.e { "data : [ ... ] }
+                // Handle resulting parsed JSON response here
+//                        Snackbar.make(view, "MF IT WORKED", Snackbar.LENGTH_LONG)
+//                                .setAction("Action", null).show();
+
+                JSONObject res = response;
+                System.out.println(response);
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String res, Throwable t) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+            }
+        });
+
+
+    }
+    public void findId(){
+        String url = "https://api.earth911.com/earth911.searchMaterials";
+        AsyncHttpClient earth911req = new AsyncHttpClient();
+        RequestParams earthParams = new RequestParams();
+        earthParams.put("api_key", "9f8e452085d40bad");
+        earthParams.put("query","Pen + Gear 1-Subject Spiral Notebook, College Ruled, 70 Pages");
+        earth911req.get(url, earthParams, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                // Root JSON in response is an dictionary i.e { "data : [ ... ] }
+                // Handle resulting parsed JSON response here
+//                        Snackbar.make(view, "MF IT WORKED", Snackbar.LENGTH_LONG)
+//                                .setAction("Action", null).show();
+
+                JSONObject res = response;
+                System.out.println(response);
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String res, Throwable t) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+            }
+        });
+    }
+
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -61,8 +110,8 @@ public class FirstFragment extends Fragment {
 
 //                Snackbar.make(view, "LAT: " + currentLat + " , LONG: " + currentLong, Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-
-
+                getDataFromUPC();
+                findId();
                 String url = "https://api.earth911.com/earth911.searchLocations";
                 AsyncHttpClient earth911req = new AsyncHttpClient();
                 RequestParams earthParams = new RequestParams();
@@ -78,7 +127,7 @@ public class FirstFragment extends Fragment {
 //                        Snackbar.make(view, "MF IT WORKED", Snackbar.LENGTH_LONG)
 //                                .setAction("Action", null).show();
 
-                        JSONObject res = new JSONObject(response);
+                        JSONObject res = response;
                         System.out.println(response);
                     }
                     @Override
